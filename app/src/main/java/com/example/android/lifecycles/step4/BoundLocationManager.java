@@ -16,13 +16,17 @@
 
 package com.example.android.lifecycles.step4;
 
+import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.util.Log;
+
+import java.util.Objects;
 
 
 public class BoundLocationManager {
@@ -42,16 +46,24 @@ public class BoundLocationManager {
             mContext = context;
             mListener = listener;
             //TODO: Add lifecycle observer
+            lifecycleOwner.getLifecycle().addObserver(this);
         }
 
         //TODO: Call this on resume
+        @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
         void addLocationListener() {
             // Note: Use the Fused Location Provider from Google Play Services instead.
             // https://developers.google.com/android/reference/com/google/android/gms/location/FusedLocationProviderApi
 
             mLocationManager =
                     (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
-            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mListener);
+            try {
+                assert mLocationManager != null;
+                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mListener);
+            } catch (NullPointerException e){
+                e.printStackTrace();
+            }
+
             Log.d("BoundLocationMgr", "Listener added");
 
             // Force an update with the last location, if available.
@@ -63,6 +75,7 @@ public class BoundLocationManager {
         }
 
         //TODO: Call this on pause
+        @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
         void removeLocationListener() {
             if (mLocationManager == null) {
                 return;

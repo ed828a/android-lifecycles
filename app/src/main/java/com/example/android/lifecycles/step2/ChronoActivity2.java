@@ -20,6 +20,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Chronometer;
 
 import com.example.android.codelabs.lifecycle.R;
@@ -43,10 +44,12 @@ public class ChronoActivity2 extends AppCompatActivity {
             long startTime = SystemClock.elapsedRealtime();
             chronometerViewModel.setStartTime(startTime);
             chronometer.setBase(startTime);
+            Log.i("Timer Base", "SystemClock.elapsedRealtime:" + startTime);
         } else {
             // Otherwise the ViewModel has been retained, set the chronometer's base to the original
             // starting time.
             chronometer.setBase(chronometerViewModel.getStartTime());
+            Log.i("Timer Base", "chronometerViewModel.getStartTime:" + chronometerViewModel.getStartTime());
         }
 
         chronometer.start();

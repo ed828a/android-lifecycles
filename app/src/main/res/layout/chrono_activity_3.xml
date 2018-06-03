@@ -20,6 +20,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/holo_orange_light"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -31,13 +32,15 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Hello World!" />
+        android:layout_above="@id/timer_textview"
+        android:text="Activity Three"
+        android:textColor="@android:color/background_light"
+        android:textSize="36sp" />
 
     <TextView
         android:id="@+id/timer_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/hello_textview"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
 

@@ -35,6 +35,7 @@ public class LocationActivity extends AppCompatActivity {
 
     private LocationListener mGpsListener = new MyLocationListener();
 
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
             @NonNull int[] grantResults) {
@@ -89,4 +90,6 @@ public class LocationActivity extends AppCompatActivity {
         public void onProviderDisabled(String provider) {
         }
     }
+
+
 }
